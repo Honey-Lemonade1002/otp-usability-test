@@ -15,11 +15,18 @@
     <p>請選擇一種 OTP 顯示模式進行測試。</p>
 
     <div class="button-group">
-      <button>模式 A</button>
-      <button>模式 B</button>
-      <button>模式 C</button>
-      <button>隨機模式</button>
+      <button onclick="showOTP('A')">模式 A</button>
+      <button onclick="showOTP('B')">模式 B</button>
+      <button onclick="showOTP('C')">模式 C</button>
+      <button onclick="showOTP('random')">隨機模式</button>
+    </div>
+
+    <div class="test-area">
+      <h2>目前顯示的驗證碼</h2>
+      <div id="otp-display">尚未選擇模式</div>
     </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
