@@ -93,26 +93,34 @@ input {
 
 .history-section {
   margin-top: 40px;
+  text-align: center;
 }
 
-table {
-  width: 100%;
+.history-section h2 {
+  margin-bottom: 16px;
+}
+
+.history-section table {
+  width: 90%;
+  max-width: 700px;
+  margin: 16px auto 0 auto;
   border-collapse: collapse;
-  margin-top: 16px;
   font-size: 17px;
 }
 
-th, td {
+.history-section th,
+.history-section td {
   padding: 14px;
   border: 1px solid #ddd;
   text-align: center;
 }
 
-th {
+.history-section th {
   background-color: #e5e7eb;
+  font-weight: bold;
 }
 
-td {
+.history-section td {
   background-color: white;
 }
 
@@ -133,5 +141,15 @@ td {
   input {
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .history-section table {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .history-section th,
+  .history-section td {
+    padding: 10px;
   }
 }
