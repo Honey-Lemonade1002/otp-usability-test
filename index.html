@@ -12,7 +12,7 @@
   <div class="container">
     <h1>OTP 驗證碼易用性測試</h1>
 
-    <p>請選擇一種 OTP 顯示模式進行測試。</p>
+    <p>請選擇一種 OTP 顯示模式進行測試。每次測試需連續完成 10 題。</p>
 
     <div class="button-group">
       <button onclick="showOTP('A')">模式 A</button>
@@ -28,7 +28,7 @@
       <input 
         type="text" 
         id="user-input" 
-        placeholder="請輸入驗證碼，例如 123456"
+        placeholder="請輸入驗證碼"
         maxlength="6"
       />
 
@@ -36,11 +36,27 @@
 
       <p id="result-message"></p>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+    <div class="history-section">
+      <h2>測試紀錄</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>次數</th>
+            <th>模式</th>
+            <th>平均時間</th>
+            <th>總錯誤次數</th>
+          </tr>
+        </thead>
+
+        <tbody id="history-body">
+          <tr id="empty-row">
+            <td colspan="4">尚無測試紀錄</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script src="script.js"></script>
