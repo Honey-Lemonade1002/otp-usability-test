@@ -6,8 +6,8 @@ body {
 }
 
 .container {
-  max-width: 700px;
-  margin: 80px auto;
+  max-width: 850px;
+  margin: 60px auto;
   padding: 40px;
   background-color: white;
   border-radius: 16px;
@@ -16,20 +16,27 @@ body {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 34px;
   margin-bottom: 16px;
 }
 
-p {
+h2 {
+  font-size: 24px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.intro {
   font-size: 18px;
   color: #555;
+  margin-bottom: 28px;
 }
 
 .button-group {
-  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  margin-bottom: 32px;
 }
 
 button {
@@ -44,4 +51,87 @@ button {
 
 button:hover {
   background-color: #1d4ed8;
+}
+
+.test-area {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: #f8fafc;
+}
+
+#otp-display {
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  margin: 20px 0;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+input {
+  padding: 14px;
+  font-size: 20px;
+  width: 240px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#result-message {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.7;
+}
+
+.history-section {
+  margin-top: 40px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 17px;
+}
+
+th, td {
+  padding: 14px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #e5e7eb;
+}
+
+td {
+  background-color: white;
+}
+
+@media (max-width: 700px) {
+  .container {
+    margin: 20px;
+    padding: 24px;
+  }
+
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
