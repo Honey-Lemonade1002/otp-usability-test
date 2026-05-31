@@ -1,7 +1,7 @@
 let currentOTP = "";
 let currentMode = "";
 let currentQuestion = 0;
-let totalQuestions = 10;
+const totalQuestions = 10;
 
 let startTime = null;
 let totalTime = 0;
@@ -21,11 +21,17 @@ function generateOTP() {
 function formatOTP(otp, mode) {
   if (mode === "A") {
     return otp;
-  } else if (mode === "B") {
+  }
+
+  if (mode === "B") {
     return otp.slice(0, 3) + " " + otp.slice(3, 6);
-  } else if (mode === "C") {
+  }
+
+  if (mode === "C") {
     return otp.slice(0, 2) + " " + otp.slice(2, 4) + " " + otp.slice(4, 6);
   }
+
+  return otp;
 }
 
 function showOTP(mode) {
@@ -44,13 +50,14 @@ function showOTP(mode) {
 
 function startNewQuestion() {
   currentOTP = generateOTP();
-  startTime = new Date();
+  startTime = performance.now();
 
   document.getElementById("otp-display").textContent = formatOTP(currentOTP, currentMode);
   document.getElementById("user-input").value = "";
 
   document.getElementById("result-message").textContent =
-    "第 " + currentQuestion + " / " + totalQuestions + " 題";
+    "第 " + currentQuestion + " / " + totalQuestions + " 題，請輸入驗證碼。";
+
   document.getElementById("result-message").style.color = "#333";
 
   document.getElementById("user-input").focus();
@@ -67,7 +74,7 @@ function checkAnswer() {
   }
 
   if (userInput === currentOTP) {
-    const endTime = new Date();
+    const endTime = performance.now();
     const timeUsed = (endTime - startTime) / 1000;
 
     totalTime += timeUsed;
@@ -83,6 +90,7 @@ function checkAnswer() {
 
     resultMessage.textContent =
       "錯誤，請再試一次。目前錯誤次數：" + errorCount;
+
     resultMessage.style.color = "red";
   }
 }
@@ -110,6 +118,7 @@ function addHistoryRow(mode, averageTime, errors) {
   testCount++;
 
   const emptyRow = document.getElementById("empty-row");
+
   if (emptyRow) {
     emptyRow.remove();
   }
@@ -125,3 +134,13 @@ function addHistoryRow(mode, averageTime, errors) {
 
   historyBody.appendChild(newRow);
 }
+
+document.getElementById("user-input").addEventListener("input", function () {
+  this.value = this.value.replace(/\D/g, "");
+});
+
+document.getElementById("user-input").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    checkAnswer();
+  }
+});
