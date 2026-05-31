@@ -1,35 +1,57 @@
-const otpCode = "123456";
-
+let currentOTP = "";
 let currentMode = "";
+let currentQuestion = 0;
+let totalQuestions = 10;
+
 let startTime = null;
+let totalTime = 0;
 let errorCount = 0;
 
-function showOTP(mode) {
-  let displayCode = "";
+function generateOTP() {
+  let otp = "";
 
+  for (let i = 0; i < 6; i++) {
+    otp += Math.floor(Math.random() * 10);
+  }
+
+  return otp;
+}
+
+function formatOTP(otp, mode) {
+  if (mode === "A") {
+    return otp;
+  } else if (mode === "B") {
+    return otp.slice(0, 3) + " " + otp.slice(3, 6);
+  } else if (mode === "C") {
+    return otp.slice(0, 2) + " " + otp.slice(2, 4) + " " + otp.slice(4, 6);
+  }
+}
+
+function showOTP(mode) {
   if (mode === "random") {
     const modes = ["A", "B", "C"];
     mode = modes[Math.floor(Math.random() * modes.length)];
   }
 
   currentMode = mode;
-  startTime = new Date();
+  currentQuestion = 1;
+  totalTime = 0;
   errorCount = 0;
 
-  if (mode === "A") {
-    displayCode = otpCode;
-  } else if (mode === "B") {
-    displayCode = otpCode.slice(0, 3) + " " + otpCode.slice(3, 6);
-  } else if (mode === "C") {
-    displayCode =
-      otpCode.slice(0, 2) + " " +
-      otpCode.slice(2, 4) + " " +
-      otpCode.slice(4, 6);
-  }
+  startNewQuestion();
+}
 
-  document.getElementById("otp-display").textContent = displayCode;
+function startNewQuestion() {
+  currentOTP = generateOTP();
+  startTime = new Date();
+
+  document.getElementById("otp-display").textContent = formatOTP(currentOTP, currentMode);
   document.getElementById("user-input").value = "";
-  document.getElementById("result-message").textContent = "";
+  document.getElementById("result-message").textContent =
+    "第 " + currentQuestion + " / " + totalQuestions + " 題";
+  document.getElementById("result-message").style.color = "#333";
+
+  document.getElementById("user-input").focus();
 }
 
 function checkAnswer() {
@@ -42,19 +64,38 @@ function checkAnswer() {
     return;
   }
 
-  if (userInput === otpCode) {
+  if (userInput === currentOTP) {
     const endTime = new Date();
-    const timeUsed = ((endTime - startTime) / 1000).toFixed(2);
+    const timeUsed = (endTime - startTime) / 1000;
+    totalTime += timeUsed;
 
-    resultMessage.textContent =
-      "正確！模式：" + currentMode +
-      "，花費時間：" + timeUsed +
-      " 秒，錯誤次數：" + errorCount;
-    resultMessage.style.color = "green";
+    if (currentQuestion < totalQuestions) {
+      currentQuestion++;
+      startNewQuestion();
+    } else {
+      showFinalResult();
+    }
   } else {
     errorCount++;
     resultMessage.textContent =
       "錯誤，請再試一次。目前錯誤次數：" + errorCount;
     resultMessage.style.color = "red";
   }
+}
+
+function showFinalResult() {
+  const averageTime = (totalTime / totalQuestions).toFixed(2);
+
+  document.getElementById("otp-display").textContent = "測試完成";
+  document.getElementById("user-input").value = "";
+
+  document.getElementById("result-message").innerHTML =
+    "模式 " + currentMode + " 測試完成！<br>" +
+    "總題數：" + totalQuestions + " 題<br>" +
+    "平均完成時間：" + averageTime + " 秒<br>" +
+    "總錯誤次數：" + errorCount + " 次";
+
+  document.getElementById("result-message").style.color = "green";
+
+  currentMode = "";
 }
