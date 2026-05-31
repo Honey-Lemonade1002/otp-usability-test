@@ -24,7 +24,23 @@
     <div class="test-area">
       <h2>目前顯示的驗證碼</h2>
       <div id="otp-display">尚未選擇模式</div>
+
+      <input 
+        type="text" 
+        id="user-input" 
+        placeholder="請輸入驗證碼，例如 123456"
+        maxlength="6"
+      />
+
+      <button onclick="checkAnswer()">送出答案</button>
+
+      <p id="result-message"></p>
     </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
   </div>
 
   <script src="script.js"></script>
