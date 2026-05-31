@@ -17,11 +17,14 @@ function showOTP(mode) {
   errorCount = 0;
 
   if (mode === "A") {
-    displayCode = "A" + otpCode;
+    displayCode = otpCode;
   } else if (mode === "B") {
-    displayCode = "B" + otpCode.slice(0, 3) + " " + otpCode.slice(3, 6);
+    displayCode = otpCode.slice(0, 3) + " " + otpCode.slice(3, 6);
   } else if (mode === "C") {
-    displayCode = "C" + otpCode.slice(0, 2) + " " + otpCode.slice(2, 4) + " " + otpCode.slice(4, 6);
+    displayCode =
+      otpCode.slice(0, 2) + " " +
+      otpCode.slice(2, 4) + " " +
+      otpCode.slice(4, 6);
   }
 
   document.getElementById("otp-display").textContent = displayCode;
@@ -30,11 +33,12 @@ function showOTP(mode) {
 }
 
 function checkAnswer() {
-  const userInput = document.getElementById("user-input").value;
+  const userInput = document.getElementById("user-input").value.trim();
   const resultMessage = document.getElementById("result-message");
 
   if (currentMode === "") {
     resultMessage.textContent = "請先選擇一種模式。";
+    resultMessage.style.color = "red";
     return;
   }
 
@@ -42,10 +46,15 @@ function checkAnswer() {
     const endTime = new Date();
     const timeUsed = ((endTime - startTime) / 1000).toFixed(2);
 
-    resultMessage.textContent = 
-      `正確！模式：${currentMode}，花費時間：${timeUsed} 秒，錯誤次數：${errorCount}`;
+    resultMessage.textContent =
+      "正確！模式：" + currentMode +
+      "，花費時間：" + timeUsed +
+      " 秒，錯誤次數：" + errorCount;
+    resultMessage.style.color = "green";
   } else {
     errorCount++;
-    resultMessage.textContent = `錯誤，請再試一次。目前錯誤次數：${errorCount}`;
+    resultMessage.textContent =
+      "錯誤，請再試一次。目前錯誤次數：" + errorCount;
+    resultMessage.style.color = "red";
   }
 }
